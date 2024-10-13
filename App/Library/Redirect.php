@@ -19,7 +19,7 @@ class Redirect
   private static function registerFirstRedirect(Route $route)
   {
     $_SESSION['redirect'] = [
-      'actual' => $route->uri,
+      'actual' => $route->getRouteUriInstance()->getUri(),
       'previous' => '',
       'request' => $route->request
     ];
@@ -27,8 +27,8 @@ class Redirect
 
   private static function canChangeRedirect(Route $route)
   {
-    return $route->uri !== $_SESSION['redirect']['actual'] && $route->request === $_SESSION['redirect']['request'] ||
-      $route->uri === $_SESSION['redirect']['actual'] && $route->request !== $_SESSION['redirect']['request'];
+    return $route->getRouteUriInstance()->getUri() !== $_SESSION['redirect']['actual'] && $route->request === $_SESSION['redirect']['request'] ||
+      $route->getRouteUriInstance()->getUri() === $_SESSION['redirect']['actual'] && $route->request !== $_SESSION['redirect']['request'];
   }
 
   private static function registerRedirect(Route $route)
@@ -37,7 +37,7 @@ class Redirect
       self::canChangeRedirect($route)
     ) {
       $_SESSION['redirect'] = [
-        'actual' => $route->uri,
+        'actual' => $route->getRouteUriInstance()->getUri(),
         'previous' => $_SESSION['redirect']['actual'],
         'request' => $route->request
       ];

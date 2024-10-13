@@ -2,8 +2,10 @@
 
 namespace App\Library;
 
-use Closure;
+use App\Library\Route;
 use App\Library\RouteOptions;
+use App\Library\Uri;
+use Closure;
 
 class Router
 {
@@ -12,7 +14,8 @@ class Router
 
   public function add(string $uri, string $request, string $controller)
   {
-    $route = new Route($uri, $request, $controller);
+    $route = new Route($request, $controller);
+    $route->addRouteUri(new Uri($uri));
     $route->addRouteGroupOptions(new RouteOptions($this->routeOptions));
     $this->routes[] = $route;
   }
