@@ -2,6 +2,8 @@
 
 namespace App\Library;
 
+use Closure;
+
 class Router
 {
   private array $routes = [];
@@ -11,10 +13,15 @@ class Router
     $this->routes[] = new Route($uri, $request, $controller);
   }
 
+  public function group(array $routeOptions, Closure $callback)
+  {
+    $callback->call($this);
+  }
+
   public function init()
   {
     foreach ($this->routes as $route) {
-      if ($route->match($route)) {
+      if ($route->match()) {
         Redirect::register($route);
         return (new Controller)->call($route);
       }
