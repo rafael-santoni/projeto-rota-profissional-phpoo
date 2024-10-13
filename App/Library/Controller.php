@@ -12,7 +12,7 @@ class Controller
   {
     return ($route->getRouteOptionsInstance() && $route->getRouteOptionsInstance()->optionExists('controller')) ?
       "App\\Controllers\\" . $route->getRouteOptionsInstance()->execute('controller') . '\\' . $controller :
-      $controllerInstance = "App\\Controllers\\" . $controller;
+      "App\\Controllers\\" . $controller;
   }
 
   public function call(Route $route)

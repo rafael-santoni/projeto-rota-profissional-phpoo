@@ -5,7 +5,7 @@ try {
   $router->group(['prefix' => 'admin', 'controller' => 'Admin', 'middleware' => []], function () {
     $this->add('/', 'GET', 'AdminController:index');
     // $this->add('/user', 'GET', 'UserController:index');
-    // $this->add('/user/(:numeric)', 'GET', 'UserController:index');
+    $this->add('/user/(:alpha)', 'GET', 'UserController:show');
     $this->add('/user/(:numeric)/name/(:alpha)', 'GET', 'UserController:index');
   });
 
