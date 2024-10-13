@@ -41,3 +41,28 @@ foreach($routes as $route) {
 }
 
 var_dump($routeFound);
+
+$explodeUri = explode('/', ltrim($_SERVER['REQUEST_URI'], '/'));
+$explodeRoute = explode('/', ltrim($routeFound, '/'));
+
+$arrayDiff = array_diff($explodeUri, $explodeRoute);
+
+var_dump($explodeUri, $explodeRoute, $arrayDiff);
+
+$params = [];
+foreach($arrayDiff as $index => $uri) {
+    $params[$explodeUri[$index - 1]] = is_numeric($uri) ? (int)$uri : $uri;
+}
+
+var_dump($params);
+
+class ProductController
+{
+    public function index($product, $name)
+    {
+        var_dump($product, $name);
+    }
+}
+
+$product = new ProductController;
+$product->index(...$params);
