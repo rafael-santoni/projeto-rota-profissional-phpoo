@@ -2,9 +2,12 @@
 
 namespace App\Library;
 
-use App\Library\Route;
-use App\Library\RouteOptions;
 use App\Library\Uri;
+use App\Library\Route;
+use App\Library\Redirect;
+use App\Library\Controller;
+use App\Library\RouteOptions;
+use App\Library\RouteWildcard;
 use Closure;
 
 class Router
@@ -16,6 +19,7 @@ class Router
   {
     $route = new Route($request, $controller);
     $route->addRouteUri(new Uri($uri));
+    $route->addRouteWildcard(new RouteWildcard);
     $route->addRouteGroupOptions(new RouteOptions($this->routeOptions));
     $this->routes[] = $route;
   }
@@ -29,6 +33,7 @@ class Router
 
   public function init()
   {
+    // var_dump($this->routes);
     foreach ($this->routes as $route) {
       if ($route->match()) {
         Redirect::register($route);

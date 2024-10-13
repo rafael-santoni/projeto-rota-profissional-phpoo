@@ -4,11 +4,13 @@ namespace App\Library;
 
 use App\Library\Uri;
 use App\Library\RouteOptions;
+use App\Library\RouteWildcard;
 
 class Route
 {
   private ?RouteOptions $routeOptions = null;
   private ?Uri $uri = null;
+  private ?RouteWildcard $routeWildcard = null;
 
   public function __construct(
     // public string $uri,
@@ -36,21 +38,26 @@ class Route
     return $this->uri;
   }
 
-  /* private function currentUri()
+  public function addRouteWildcard(RouteWildcard $routeWildcard)
   {
-    return $_SERVER['REQUEST_URI'] !== '/' ? rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/') : '/';
+    $this->routeWildcard = $routeWildcard;
   }
 
-  private function currentRequest()
+  public function getRouteWildcardInstance(): ?RouteWildcard
   {
-    return strtolower($_SERVER['REQUEST_METHOD']);
-  } */
+    return $this->routeWildcard;
+  }
 
   public function match()
   {
     if($this->routeOptions->optionExists('prefix')){
       $this->uri->setUri(rtrim("/{$this->routeOptions->execute('prefix')}{$this->uri->getUri()}", '/'));
     }
+
+    $this->routeWildcard->replaceWildcardWithPattern($this->uri->getUri());
+    $wildcardReplaced = $this->routeWildcard->getWildcardReplaced();
+
+    var_dump($wildcardReplaced);
 
     if (
       $this->uri->getUri() === $this->uri->currentUri() &&
