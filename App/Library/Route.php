@@ -14,8 +14,9 @@ class Route
 
   public function __construct(
     // public string $uri,
-    public string $request,
-    public string $controller,
+    public readonly string $request,
+    public readonly string $controller,
+    public readonly array $wildcardAliases,
   ) { }
 
   public function addRouteGroupOptions(RouteOptions $routeOptions)
@@ -61,6 +62,7 @@ class Route
       $this->routeWildcard->uriEqualToPattern($this->uri->currentUri(), $wildcardReplaced)
     ) {
       $this->uri->setUri($this->uri->currentUri());
+      $this->routeWildcard->paramsToArray($this->uri->getUri(), $wildcardReplaced, $this->wildcardAliases);
     }
 
     if (
