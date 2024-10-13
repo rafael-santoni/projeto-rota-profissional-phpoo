@@ -7,15 +7,20 @@ use Closure;
 class Router
 {
   private array $routes = [];
+  private array $routeOptions = [];
 
   public function add(string $uri, string $request, string $controller)
   {
-    $this->routes[] = new Route($uri, $request, $controller);
+    $route = new Route($uri, $request, $controller);
+    $route->addRouteGroupOptions(new RouteOptions($this->routeOptions));
+    $this->routes[] = $route;
   }
 
   public function group(array $routeOptions, Closure $callback)
   {
+    $this->routeOptions = $routeOptions;
     $callback->call($this);
+    $this->routeOptions = [];
   }
 
   public function init()

@@ -1,19 +1,22 @@
 {
-  "name": "xande/stripe",
+  "name": "rs-dev/rota-pro",
+  "type": "project",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
-      "app\\": "app/"
+      "App\\": "App/"
     }
   },
   "authors": [
     {
-      "name": "Alexandre Cardoso",
-      "email": "xandecar@hotmail.com"
+      "name": "Rafael Santoni",
+      "email": "rafasantoni.dev@gmail.com"
     }
   ],
   "require": {
-    "stripe/stripe-php": "^10.3",
-    "league/plates": "^3.5",
-    "vlucas/phpdotenv": "^5.5"
+    "symfony/var-dumper": "^7.1",
+    "stripe/stripe-php": "10.3.0",
+    "league/plates": "3.5.0",
+    "vlucas/phpdotenv": "5.5.0"
   }
 }
