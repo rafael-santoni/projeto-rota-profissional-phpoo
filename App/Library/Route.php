@@ -19,7 +19,7 @@ class Route
     $this->routeOptions = $routeOptions;
   }
 
-  public function getRouteOptions(): ?RouteOptions
+  public function getRouteOptionsInstance(): ?RouteOptions
   {
     return $this->routeOptions;
   }

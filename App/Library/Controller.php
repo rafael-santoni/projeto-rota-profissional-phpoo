@@ -8,6 +8,13 @@ class Controller
 {
   // private const NAMESPACE = 'App\\Controllers\';
 
+  private function controllerPath($route, $controller)
+  {
+    return ($route->getRouteOptionsInstance() && $route->getRouteOptionsInstance()->optionExists('controller')) ?
+      "App\\Controllers\\" . $route->getRouteOptionsInstance()->execute('controller') . '\\' . $controller :
+      $controllerInstance = "App\\Controllers\\" . $controller;
+  }
+
   public function call(Route $route)
   {
     $controller = $route->controller;
@@ -18,7 +25,7 @@ class Controller
 
     [$controller, $action] = explode(':', $controller);
 
-    $controllerInstance = "App\\Controllers\\" . $controller;
+    $controllerInstance = $this->controllerPath($route, $controller);
 
     if (!class_exists($controllerInstance)) {
       throw new Exception("Controller {$controller} does not exist");
