@@ -37,6 +37,9 @@ class Controller
       throw new Exception("Action {$action} does not exist");
     }
 
+    //Middlewares
+    // var_dump($route->getRouteOptionsInstance()); die;
+
     // $controller->$action(...$route->getRouteWildcardInstance()->getParams());
     call_user_func_array([$controller, $action], $route->getRouteWildcardInstance()->getParams());
   }
