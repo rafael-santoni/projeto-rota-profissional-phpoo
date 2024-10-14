@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 class ProductController
 {
-  public function index()
+  public function index($productName)
   {
-    dump('ProductController -> index()');
+    dump('ProductController -> index()', "Produto: {$productName}");
   }
 }

@@ -24,8 +24,6 @@ class RouteWildcard
         $aliasesIndex++;
       }
     }
-
-    dump($this->params);
   }
 
   public function replaceWildcardWithPattern(string $uriToReplace)
@@ -58,6 +56,6 @@ class RouteWildcard
 
   public function getParams()
   {
-    return $this->params;
+    return $this->params ? [...$this->params] : [] ;
   }
 }

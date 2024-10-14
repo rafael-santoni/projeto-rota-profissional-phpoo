@@ -4,8 +4,8 @@ namespace App\Controllers\Admin;
 
 class UserController
 {
-  public function index()
+  public function index($userId, $userName)
   {
-    dump('UserController -> index()');
+    dump('UserController -> index()', "Usuário: {$userId}, Name: {$userName}");
   }
 }
