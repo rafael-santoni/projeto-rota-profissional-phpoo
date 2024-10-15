@@ -39,13 +39,11 @@ class Controller
     }
 
     //Middlewares
-    if($route->getRouteOptionsInstance()->optionExists('middlewares')) {
+    if($route->getRouteOptionsInstance()?->optionExists('middlewares')) {
       (new Middleware($route->getRouteOptionsInstance()->execute('middlewares')))->execute();
     }
 
-    // var_dump($route->getRouteOptionsInstance()); die;
-
     // $controller->$action(...$route->getRouteWildcardInstance()->getParams());
-    call_user_func_array([$controller, $action], $route->getRouteWildcardInstance()->getParams());
+    call_user_func_array([$controller, $action], $route->getRouteWildcardInstance()?->getParams() ?? [] );
   }
 }
