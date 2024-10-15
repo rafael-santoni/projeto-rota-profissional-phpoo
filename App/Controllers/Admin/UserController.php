@@ -8,9 +8,9 @@ class UserController
   {
     dump('UserController -> index()', "Usuário: {$userId}, Name: {$userName}");
   }
-
-  public function show()
+  
+  public function show($userName)
   {
-    
+    dump('UserController -> show()', "User Name: {$userName}");
   }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Library;
 
+use App\Library\Middleware;
 use Exception;
 
 class Controller
@@ -38,6 +39,10 @@ class Controller
     }
 
     //Middlewares
+    if($route->getRouteOptionsInstance()->optionExists('middlewares')) {
+      (new Middleware($route->getRouteOptionsInstance()->execute('middlewares')))->execute();
+    }
+
     // var_dump($route->getRouteOptionsInstance()); die;
 
     // $controller->$action(...$route->getRouteWildcardInstance()->getParams());
